@@ -1,0 +1,412 @@
+
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="css/styleFontaine.css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/imageMapResizer.min.js"></script>
+		<script>
+			var clickSound;
+			var clavierSound;	
+			$(document).ready(function(){
+				clickSound = new Audio('bruit/click.mp3');
+				clavierSound = new Audio('bruit/clavier.wav');
+				soundFond = new Audio('bruit/grottev1.wav');
+				soundGrotte = new Audio('bruit/A1-0001_Untitled.wav');
+				soundFond.volume= 1;
+				soundGrotte.volume = 0.8;
+				clickSound.volume = 0.4;
+				clavierSound.volume = 0.1;
+			});
+			var p1;
+			var p2;
+			var p3;
+			var grotte;
+			
+			var objBody;
+			
+			var btn;
+	
+	        var fondNoir;
+            var fintxt;
+			
+			$(document).ready(function(){
+				p1 = document.getElementById("pierre1");
+				p2 = document.getElementById("pierre2");
+				p3 = document.getElementById("pierre3");
+				
+				grotte = document.getElementById("entréeGrotte");
+				
+				objBody = document.body; 
+				objBody.style.transition = "3s ease-in-out";
+				
+				btn = document.getElementById("btnPierre");
+				
+				finTxt = document.getElementById("textDeFin");
+				finTxt.style.transition = "4s ease-in-out";
+				
+				fondNoir = document.getElementById("fonduNoir");
+				
+			});
+			
+			function writeText1(){
+				var array = Array.from($("#sp1").val());
+				$("#sp1").hide();
+				var i = 0;
+				var rand; 
+				//var audio = new Audio('bruit/ordi-clavier1.mp3'); 
+				
+	
+				function Write(){
+				//audio.play();
+				if(i == 143) {
+					$("#rs1").append("<br />");
+					$("#rs1").append("<br />");
+				}
+				
+				$("#rs1").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+					btn.style.opacity = "1";
+				}
+				i++;
+				}
+				Write();
+			}
+			
+			function showPierre(){
+				clickSound.play();
+				setTimeout(function (){
+					// Something you want delayed.
+					p1.style.visibility = "visible"
+				}, 500); // How long do you want the delay to be (in milliseconds)? 
+				setTimeout(function (){
+					// Something you want delayed.
+					p2.style.visibility = "visible"
+				}, 1500); // How long do you want the delay to be (in milliseconds)? 
+				setTimeout(function (){
+					// Something you want delayed.
+					p3.style.visibility = "visible"
+				}, 2500); // How long do you want the delay to be (in milliseconds)? 
+				
+				setTimeout(function (){
+					// Something you want delayed.
+					grotte.style.visibility = "visible"
+				}, 3000); // How long do you want the delay to be (in milliseconds)? 
+							
+			}
+			
+			function gogrotte(){
+				objBody.style.opacity = "0";
+				//setTimeout(enterGrotte, 4500);
+				setTimeout(fithpart, 4500);
+				
+			}
+			
+			function enterGrotte(){	
+				window.location.href = "06_VisiteGrotte.html";
+			}
+			var btnBalise;
+			
+			$(document).ready(function(){				
+				btnBalise = document.getElementById("btnBal");
+			});
+			
+			function writeText2(){
+				var array = Array.from($("#sp2").val());
+				$("#sp2").hide();
+				var i = 0;
+				var rand; 
+				//var audio = new Audio('bruit/ordi-clavier1.mp3'); 
+				
+	
+				function Write(){
+				//audio.play();
+				if(i == 143) {
+					$("#rs2").append("<br />");
+					$("#rs2").append("<br />");
+				}
+				
+				$("#rs2").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+					btnBalise.style.opacity = "1";
+				}
+				i++;
+				}
+				Write();
+			}
+			function writeText3(){
+				var array = Array.from($("#sp3").val());
+				$("#sp3").hide();
+				var i = 0;
+				var rand; 
+				//var audio = new Audio('bruit/ordi-clavier1.mp3'); 
+				
+	
+				function Write(){
+				//audio.play();
+				if(i == 167 || i==354) {
+					$("#rs3").append("<br />");
+					$("#rs3").append("<br />");
+				}
+				if(i == 394 || i==418){
+					$("#rs3").append("<br />");
+					$("#rs3").append("<br />");
+					$("#rs3").append("<br />");
+					$("#rs3").append("<br />");
+				}
+				if(i == array.length){
+					gogrotte();
+				}
+				
+				$("#rs3").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+				}
+				i++;
+				}
+				Write();
+				
+				
+			}
+			function writeText4(){
+				var array = Array.from($("#sp").val());
+				$("#sp").hide();
+				var i = 0;
+				var rand; 
+				//var audio = new Audio('bruit/ordi-clavier1.mp3'); 
+				
+	
+				function Write(){
+				//audio.play();
+				if(i == 43 || i==269) {
+					$("#rs").append("<br />");
+					$("#rs").append("<br />");
+				}
+				
+				if(i == 63 || i==291) {
+					$("#rs").append("<br />");
+				}
+				
+				$("#rs").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+				}
+				i++;
+				}
+				Write();
+			}
+			var part1;
+			var part2;
+			var part3;
+			var part4;
+			var part5;
+			var part6;
+			var part7;
+			
+
+			$(document).ready(function(){
+				part1 = document.getElementById("d00");
+			    part2 = document.getElementById("d01");
+			    part3 = document.getElementById("d02");
+			    part4 = document.getElementById("d03");
+			    part5 = document.getElementById("d04");
+			    part6 = document.getElementById("d05");
+			    part7 = document.getElementById("d06");
+			});
+			function secondpart(){
+				clickSound.play();
+				clavierSound.play();
+				part1.style.display = "none";
+				part2.style.display = "inline";
+				writeText1();				
+			}
+			function thirdpart(){
+				clickSound.play();
+				clavierSound.play();
+				soundFond.play();
+				part2.style.display = "none";
+				part3.style.display = "inline";
+				writeText2();
+			}
+			function fourthpart(){
+			    soundGrotte.play();
+				clickSound.play();
+				clavierSound.play();
+				part3.style.display = "none";
+				part4.style.display = "inline";
+				writeText3();
+			}
+			function fithpart(){
+			    jQuery(function($) {
+                    $('map').imageMapResize();
+                });
+				part4.style.display = "none";
+				part5.style.display = "inline";
+				objBody.style.opacity = "1";
+			}
+			function sithpart(){
+				clickSound.play();
+				clavierSound.play();
+				part5.style.display = "none";
+				part6.style.display = "inline";
+				writeText4();
+			}
+			function seventhpart(){
+				clickSound.play();
+				clavierSound.pause();
+				part6.style.display = "none";
+				part7.style.display = "inline";
+			}
+			function fin(){
+				//objBody.style.opacity = "0";
+				fondNoir.style.zIndex = "9";
+				fondNoir.style.transition = "5s ease-in-out";
+				fondNoir.style.opacity="1";
+				setTimeout(function(){
+				finTxt.style.opacity="1";}, 4500);
+			}
+		</script>
+		
+	</head>	
+	<body>
+		<div id="d00">
+			<div class="overlay-imageStart" style="z-index:1">
+				<a href="javascript:secondpart()">
+					<img class="image" src="img/planetGrotte.jpg" alt="Alt text" />
+					<div class="hover">
+						<div class="text">LA GROTTE</div>
+					</div>
+				</a>
+			</div>
+			<div style="position:fixe;z-index:0">
+				<img src="img/101563303_255321059115700_1335802122603593728_n.png" style="width:100%; height:100%" />
+			</div>
+		</div>
+		<div id="d01" style="display:none">
+			<div style="position:absolute; z-index:2; top:5%; left:2%; width: 45%; height:90%; background-color:black; opacity: 0.7">
+				<div>
+					
+				</div>
+			</div>
+			<div style="position:absolute; z-index:3; top:5%; left:2%; width:45vw; height:90vh">
+				<div id="rs1" style="position:absolute; color:white; font-size: 15; width:80%; left:10%; top: 7%">
+					<textarea id="sp1" style="display:none">
+					APRÈS AVOIR RAMASSÉ LE DERNIER ARTEFACT, PIERRE DOIT DONC SE DIRIGER VERS L’ENTRÉE DE LA GROTTE QUI SE TROUVE QUELQUES MÈTRES PLUS LOIN.
+					A L’ENTRÉE DE LA GROTTE, SE TROUVENT TROIS EMPLACEMENTS VIDES.</textarea>
+				</div>
+				<a href="javascript:showPierre()">
+					<div id="btnPierre" style="position:absolute; top: 40%; left:30% ; width: 40%; font-size:20; border-width: 0.4em; border-color: white; color:white; text-align:center; border:solid; opacity:0">
+						INSÉRER LES PIERRES
+					</div>
+				</a>
+				<img id="pierre1" src="img/p1.jpg" style="height:10vh; opacity:1; position: absolute; top:50vh; left:20vw; visibility:hidden"/>
+				<img id="pierre2" src="img/p2.jpg" style="height:10vh; opacity:1; position: absolute; top:65vh; left:13vw; visibility:hidden"/>
+				<img id="pierre3" src="img/p4.jpg" style="height:10vh; opacity:1; position: absolute; top:65vh; left:27vw; visibility:hidden"/>
+			</div>
+			<div id="entréeGrotte" class="overlay-image" style="z-index:2; top:50vh; left:45wh; height:40vh; visibility: hidden">
+				<a href="javascript:thirdpart()">
+					<!-- <img class="image" src="img/planeteGrotte.jpg" alt="Alt text" /> -->
+					<div class="hover">
+						<div class="text" style="font-size:40px">ENTRER</div>
+					</div>
+				</a>
+			</div>
+			<div style="position:fixe;z-index:0">
+				<img src="img/tombeau.jpg" style="width:100%; height:100%" />
+			</div>
+		</div>
+		<div id="d02" style="display:none">
+			<div id="rs2" style="position:absolute; color:white; font-size:2vw; top: 5vh; left:20vw; width:60vw; text-align:center">
+				<textarea id="sp2" style="display:none">DANS LA PÉNOMBRE DE LA GROTTE, PIERRE A DU MAL À VOIR.</textarea>
+			</div>
+			<img src="img/balise.jpg" style="position:absolute; height:50%; top:22%; left: 38%" />
+			<a href="javascript:fourthpart()">
+				<div id="btnBal" style="position:absolute; top: 75vh; left:40vw ; width: 20vw; font-size:2vw; border-width: 0.4em; border-color: white; color:white; text-align:center; border:solid; opacity:0">
+					UTILISER BALISE LUMINEUSE
+				</div>
+			</a>
+		</div>
+		<div id="d03" style="display:none">
+			<div id="rs3" style="position:absolute; color:white; font-size:3vh; top: 7%; width:80% ; left:10%">
+				<textarea id="sp3" style="display:none">
+				SE DESSINENT ALORS SUR LES PAROIS DES FORMES, DES SORTES DE CARTES AUX MOTIFS ROCAILLEUX, DES FRAGMENTS DE PLANÈTES INVENTÉES DE TOUTES PIÈCES PAR SON IMAGINATION. 
+				TOUTES CES PIERRES POURRAIENT ÊTRE DES FRAGMENTS TOMBÉS DU CIEL DE CES ASTRES FICTIFS. PEUT-ÊTRE QUE CES ÉTOILES SONT DÉJÀ MORTES, MAIS PEU 
+				IMPORTE DU MOMENT QU’ELLES BRILLENT.
+				LA GROTTE SEMBLE GORGÉE D’HISTOIRE.
+				*BRUIT DE FONTAINE*
+				PIERRE SE LAISSE GUIDER PAR LE BRUIT DE L’EAU.</textarea>
+			</div>
+		</div>
+		<div id="d04" style="display:none">
+			<img id="img" src="img/scroll.jpg" style="z-index:1;width:100%" alt="alttext" usemap="#scrollmap">
+			<map name="scrollmap">
+                <area shape="rect" coords="1123,32821,3249,34477" href="javascript:sithpart()" alt="alttext">
+            </map>
+		</div>
+		<div id="d05" style="display:none">
+			<img id="img" src="img/fontainepixels.png" style="z-index:0;position:fixed; width:100%; height:100%"/>
+			<div style="position:absolute; z-index:1; opacity:0.5; width:50vw; height:75vh; background-color:black; top:5%; left:5%; border: solid black; border-width: 1em"> </div>
+			<div id="rs" style="position:absolute; z-index:2; width:50vw; color:white; font-size: 3vh; top:5vh; left:5vw; border: solid transparent; border-width: 1em	">
+				<textarea id="sp" style="display:none">
+				FACE À LUI, SE TROUVENT DEUX FONTAINES.
+				
+				À GAUCHE, LA FONTAINE DE L’OUBLI, 
+				POUR CELUI OU CELLE DÉSIRANT OUBLIER TOUT SOUVENIR D’UNE VIE PASSÉE, CONTRAIGNANT LE VOYAGEUR À RECOMMENCER SA QUÊTE 
+				ET SON PÉLERINAGE DANS LE TEMPS PERDU DE LA VIRTUALITÉ.
+				
+				ET À DROITE, LA FONTAINE DU SOUVENIR, 
+				POUR CELUI OU CELLE QUI DÉSIRE RETROUVER LE SOUVENIR DE SA PROPRE IDENTITÉ ET RENOUER AVEC LA RÉALITÉ. ELLE PERMET AU VOYAGEUR 
+				DE SE LIBÉRER DE CE MONDE VIRTUEL DANS LEQUEL IL S’ÉTAIT ENFERMÉ.</textarea>
+			</div>
+			<a href="javascript:seventhpart()">
+				<img id="fenetreForet" src="img/pdfFontaine-1.jpg" style="position:absolute; z-index:1; height : 70vh; top:10vh; right : 10vw"/>
+			</a>
+		</div>
+		<div id="d06" style="display:none">
+		    <div id="fonduNoir" style="opacity:0; z-index:-1; width:95%; height: 100%; background-color:black; position:absolute">
+		        
+		    </div>
+		    <a id="retourAcceuil" href="01_Start.html" style="position:absolute; z-index:1; color:black">
+			<div>
+				Retour acceuil
+			</div>
+	    	</a>
+		    <div>
+		    <img src="img/grotte double.jpg" style=" z-index:-1; height:100%; display:block; margin-right:auto; margin-left:auto">
+
+            <a class = "finTxt" href="javascript:fin()">
+			<div style="position:absolute; z-index:1; width: 20vw; left:18%; top:44%; color:white; font-size: 4vh">
+				BOIRE L’EAU DE LA FONTAINE DU SOUVENIR
+			</div>
+		    </a>
+		    <a class = "finTxt" href="01_Start.html">
+			<div style="position:absolute; z-index:1; width: 20vw; right: 18%; top:44%; color:white; font-size: 4vh">
+				BOIRE L’EAU DE LA FONTAINE DE L’OUBLI ET RECOMMENCER
+			</div>
+		    </a>
+		    <div id="textDeFin" style="opacity:0;position:absolute; z-index:10; right: 10%; bottom:10%; color:white; font-size: 4vh">
+		        <p>FIN...</p>
+		    </div>
+		</div>
+		</div>
+
+	</body>
+</html>

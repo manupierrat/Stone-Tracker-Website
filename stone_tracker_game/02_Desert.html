@@ -1,0 +1,643 @@
+
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="css/styleFontaine.css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script>
+		    window.addEventListener("load", function(){
+		        setTimeout(function(){
+		            window.scroll(0,1);
+		        },0);
+		    });
+			var txt;
+			var clickSound;
+			var clavierSound;
+			var countImgLoaded = 0;
+			
+			$(document).ready(function(){
+				txt = document.getElementById("txt");
+				txt.style.transition = ".2s ease-in-out";
+				clickSound = new Audio('bruit/click.mp3');
+				clavierSound = new Audio('bruit/clavier.wav');
+				soundFond = new Audio('bruit/désertv1.wav');
+				soundFond.volume= 0.8;
+				clickSound.volume = 0.4;
+				clavierSound.volume = 0.2;
+			});
+			
+			function writeText(){
+				var array = Array.from($("#sp").val());
+				$("#sp").hide();
+				var i = 0;
+				var rand;				
+	
+				function Write(){
+				//audio.play();
+				if(i == 81) {
+					$("#rs").append("<br />");
+					
+				}
+				
+				$("#rs").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+				}
+				i++;
+				}
+				Write();
+			}
+			
+			
+			function epee(){
+					clickSound.play();
+					var inventaire = document.getElementById("inventaire");
+					var sword = document.getElementById("sword");
+					
+					inventaire.style.display = "inline";
+					sword.style.display = "none";
+			}
+			
+			
+			
+			
+			function show(){
+				txt.style.opacity = "1";
+			};
+			
+			function hide(){
+				txt.style.opacity ="0";
+				
+			};
+			var dune;
+			var sol;
+			var txt2;
+
+			$(document).ready(function(){
+				dune = document.getElementById("dune");
+				sol = document.getElementById("sol");
+				txt2 = document.getElementById("duneTxt");
+				
+				dune.style.transition = ".2s ease-in-out";
+				sol.style.transition = ".2s ease-in-out";
+				txt2.style.transition = ".2s ease-in-out";
+			
+			});
+		
+			function showDesertOuest(){
+				dune.style.opacity = "1";
+				sol.style.opacity = "1";
+				txt2.style.opacity = "1";
+			};
+			
+			function hideDesertOuest(){
+				dune.style.opacity ="0";
+				sol.style.opacity ="0";
+				txt2.style.opacity ="0";
+			};
+			var gameBox;
+			var photoAvion;
+			$(document).ready(function(){
+				gameBox = document.getElementById("gameTxtAvion");
+				photoAvion = document.getElementById("carcasse");
+			});
+			function porte(){
+				clickSound.play();
+				document.getElementById("reponse1").innerHTML = "LA PORTE EST VÉROUILLÉE...";
+			}
+			function hublot(){
+				clickSound.play();
+				document.getElementById("reponse1").innerHTML = "LE HUBLOT EST BRISÉ, IMPOSSIBLE DE PASSER AVEC LE VERRE, PIERRE POURRAIT SE BLESSER.";
+			}	
+			function fouilleCommandant(){
+				clickSound.play();
+				document.getElementById("reponse2").innerHTML = "UNE VEILLE PAIRE DE LUNETTES SE TROUVENT DANS LA POCHE DU COMMANDANT, MAIS AUCUNE TRACE DE LA PIERRE.";	
+			}
+			function fouilleCopilote(){
+				clickSound.play();
+				document.getElementById("reponse2").innerHTML = "LES HABITS DU COPILOTE SEMBLENT USÉS PAR LE TEMPS. IL PORTE UNE AMULETTE EN MÉTAL GRAVÉE.";
+			}
+			function fouillePersGauche(){
+				clickSound.play();
+				document.getElementById("reponse3").innerHTML = "PLIÉE DANS LA POCHE DU PASSAGER UNE PAGE DÉCHIRÉE D'UN JOURNAL. ON PEUT Y LIRE L'HOROSCOPE DU 15 NOVEMBRE, L'ANNÉE SEMBLE EFFACÉE 'FUNESTE JOUR POUR LES SAGITTAIRES (...)'.";
+			}
+			function fouillePersMilieu(){
+				clickSound.play();
+				document.getElementById("reponse3").innerHTML = "UNE VIEILLE PHOTO À PEINE IDENTIFIABLE SE TROUVE DANS LA POCHE DU PASSAGER.";	
+			}
+			function fouillePersDroite(){
+				clickSound.play();
+				document.getElementById("reponse3").innerHTML = "LE PASSAGER DÉTIENT UN CLÉ. ELLE DOIT PERMETTRE D'OUVRIR UNE VALISE.";
+				document.getElementById("clef").innerHTML = "INVENTAIRE : CLÉ TROUVÉE!";
+			}
+			function fouilleValiseGauche(){
+				clickSound.play();
+				document.getElementById("reponse3").innerHTML = "PLUSIEURS BALISES LUMINEUSES SE TROUVENT DANS CETTE VALISE. CET OBJET POURRAIT ÊTRE UTILE DANS LA GROTTE.";
+				document.getElementById("balise").innerHTML = "INVENTAIRE : BALISE LUMINEUSE TROUVÉE!";
+			}
+			function fouilleValiseDroite(){
+				clickSound.play();
+				document.getElementById("reponse3").innerHTML = "LA VALISE CONTIENT DES PLANS D'AMÉNAGEMENTS D'ÉNERGIES RENOUVELABLES.";
+			}
+			function fouilleValiseMilieu(){
+				clickSound.play();
+				var clef = document.getElementById("clef").innerHTML;
+				if(clef === ""){
+					document.getElementById("reponse3").innerHTML = "LA VALISE EST FERMÉE";
+				}else{
+					document.getElementById("reponse3").innerHTML = "LA VALISE EST OUVERTE";
+					document.getElementById("artefact").innerHTML = "ARTEFACT TROUVÉ!!!";
+					document.getElementById("suivant").style.display = "inline";
+				}
+			}
+			function etape1(){
+				clickSound.play();
+				document.getElementById("boutonEtape1").style.display = "none";
+				document.getElementById("etape2").style.display = "inline";
+			}
+			function etape2(){
+				clickSound.play();
+				document.getElementById("boutonEtape2").style.display = "none";
+				document.getElementById("etape3").style.display = "inline";
+			}
+			function game(){
+				clickSound.play();
+				gameBox.style.opacity = "1";
+				photoAvion.style.opacity = "1";
+				photoAvion.style.transform = "scale(2)";
+			}
+			var part1;
+			var part2;
+			var part3;
+			var part4;
+			var part5;
+			var part6;
+			var part7;
+			var memo;
+			$(document).ready(function(){
+				part1 = document.getElementById("d00");
+			    part2 = document.getElementById("d01");
+			    part3 = document.getElementById("d02");
+			    part4 = document.getElementById("d03");
+			    part5 = document.getElementById("d04");
+			    part6 = document.getElementById("d05");
+			    part7 = document.getElementById("d06");
+			    
+			    memo = document.getElementById("memo");
+			
+				id1 = document.getElementById("gameTxtAvion");
+				photoAvion = document.getElementById("carcasse");
+			});
+			function secondpart(){
+				clickSound.play();
+				clavierSound.play();
+				soundFond.play();
+				part1.style.display = "none";
+				part2.style.display = "inline";
+				writeText();
+				<!-- var audio = new Audio('bruit/desert.wav');
+				<!-- audio.play(); --> -->
+				
+			}
+			function thirdpart(){
+				clickSound.play();
+				clavierSound.pause();
+				clavierSound.currentTime = 0;
+				part2.style.display = "none";
+				part3.style.display = "inline";
+			}
+			function fourthpart(){
+				clickSound.play();
+				part3.style.display = "none";
+				part4.style.display = "inline";
+			}
+			function nordOuest(){
+				clickSound.play();
+				part4.style.display = "none";
+				part6.style.display = "inline";
+			}
+			function nordSud(){
+				clickSound.play();
+				part4.style.display = "none";
+				part5.style.display = "inline";
+			}
+			function nordEst(){
+				clickSound.play();
+				part4.style.display = "none";
+				part7.style.display = "inline";
+			}
+			function ouestSud(){
+				clickSound.play();
+				part6.style.display = "none";
+				part5.style.display = "inline";
+			}
+			function ouestEst(){
+				clickSound.play();
+				part6.style.display = "none";
+				part7.style.display = "inline";
+			}
+			function ouestNord(){
+				clickSound.play();
+				part6.style.display = "none";
+				part4.style.display = "inline";
+			}
+			function sudEst(){
+				clickSound.play();
+				part5.style.display = "none";
+				part7.style.display = "inline";
+			}
+			function sudNord(){
+				clickSound.play();
+				part5.style.display = "none";
+				part4.style.display = "inline";
+			}
+			function sudOuest(){
+				clickSound.play();
+				part5.style.display = "none";
+				part6.style.display = "inline";
+			}
+			function estNord(){
+				clickSound.play();
+				part7.style.display = "none";
+				part4.style.display = "inline";
+			}
+			function estOuest(){
+				clickSound.play();
+				part7.style.display = "none";
+				part6.style.display = "inline";
+			}
+			function estSud(){
+				clickSound.play();
+				part7.style.display = "none";
+				part5.style.display = "inline";
+			}
+			function hideMemo(){
+			    memo.style.display = "none";
+			}
+			
+			function preloadImages(array, waitForOtherResources, timeout) {
+			    
+    var loaded = false, imgs = array.slice(0), t = timeout || 15*1000, timer;
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list
+    if (!waitForOtherResources || document.readyState === 'complete') {
+        loadNow();
+    } else {
+        window.addEventListener("load", function() {
+            clearTimeout(timer);
+            loadNow();
+        });
+        // in case window.addEventListener doesn't get called (sometimes some resource gets stuck)
+        // then preload the images anyway after some timeout time
+        timer = setTimeout(loadNow, t);
+    }
+
+    function loadNow() {
+        if (!loaded) {
+            loaded = true;
+            for (var i = 0; i < imgs.length; i++) {
+                var img = new Image();
+                img.onload = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        list.splice(index, 1);
+                        console.log("index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        countImgLoaded = countImgLoaded + 1
+                        console.log(countImgLoaded);
+                    }
+                };
+                img.onerror = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONERRROR - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                img.onabort = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONABORT - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                list.push(img);
+                img.src = imgs[i];
+            }
+        }
+    }
+}
+
+function preloadAudios(array, waitForOtherResources, timeout) {
+			    
+    var loaded = false, imgs = array.slice(0), t = timeout || 15*1000, timer;
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list
+    if (!waitForOtherResources || document.readyState === 'complete') {
+        loadNowAud();
+    } else {
+        window.addEventListener("load", function() {
+            clearTimeout(timer);
+            loadNowAud();
+        });
+        // in case window.addEventListener doesn't get called (sometimes some resource gets stuck)
+        // then preload the images anyway after some timeout time
+        timer = setTimeout(loadNowAud, t);
+    }
+
+    function loadNowAud() {
+        if (!loaded) {
+            loaded = true;
+            for (var i = 0; i < imgs.length; i++) {
+                var img = new Audio();
+                img.onload = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        list.splice(index, 1);
+                        console.log("index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        countImgLoaded = countImgLoaded + 1
+                        console.log(countImgLoaded);
+                    }
+                };
+                img.onerror = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONERRROR - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                img.onabort = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONABORT - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                list.push(img);
+                img.src = imgs[i];
+            }
+        }
+    }
+}
+
+
+//foret
+preloadImages(["img/96812966_241673303753913_8838155127291379712_n.png"],true);
+preloadImages(["img/93576570_666773304149774_909479214921547776_n.png"],true);
+preloadImages(["img/DSC_6121 - copie.jpg"],true);
+preloadImages(["img/MAR_0373 - copie 2.jpg"],true);
+preloadImages(["img/MAR_0393 - copie 2.jpg"],true);
+preloadImages(["img/IMG_2263 - copie.JPG"],true);
+preloadImages(["img/foret.jpg"],true);
+preloadImages(["img/fenetre.jpg"],true);
+preloadImages(["img/arbre.png"],true);
+preloadImages(["img/_MAR4261.jpg"],true);
+preloadAudios(["bruit/foret.wav"], true);
+		</script>
+		
+	</head>	
+	<body>
+		
+		<div id="d00">
+			<div style="position:absolute; left:36vw; top:3.5vw;z-index:1">
+				<p id="title" align=center> BEGIN ADVENTURE... </p>
+			</div>
+	
+			
+			<div class="overlay-imageStart" style="z-index:1">
+				<a href="javascript:secondpart()">
+					<img class="image" src="img/planetDesert.jpg" alt="Alt text" />
+					<div class="hover">
+						<div class="text">LE DÉSERT</div>
+					</div>
+				</a>
+			</div>
+			<div style="position:fixe;z-index:0">
+				<img src="img/95606791_192408381715013_5344178100756283392_n.png" style="width:100%; height:100%" />
+			</div>
+		</div>
+		<div id="d01" style="display:none">
+			<div class="mainTextOverImage">
+				<p id=noteEtude>NOTES D'ÉTUDES</p>
+				<textarea id="sp" style="display:none; font-size:1.5vw">MONSIEUR MARTIN SE SERAIT ENVOLÉ, EN POSSESSION D'UN ARTEFACT, À BORD D'UN AVION.
+				L’AVION SE SERAIT ÉCRASÉ AU MILIEU DU DÉSERT.</textarea> 
+				<p id="rs"></p>
+			</div>
+			<div class="overlay-imageAvion">
+				<a href="javascript:thirdpart()">
+					<img class="image" src="img/Avion.jpg" alt="Alt text" />
+					<!-- <div class="hover"> -->
+						<!-- <div class="text">Se faire parachuter</div> -->
+					<!-- </div> -->
+				</a>
+			</div>
+			<div style="position:fixe">
+				<img src="img/desertVueHaut.png" style="height:100%; width:100%">
+			</div>
+		</div>
+		<div id="d02" style="display:none">
+			<div style="position:fixed; top:10%; left:10%; z-index:1">
+				<a href="javascript:fourthpart()">
+					<img class="imageTopCarte" src="img/95566832_557931618260581_8252254685411409920_n.jpg" style="height:25vw"/>
+				</a>
+				<div>
+					<p id="pNoir" style="font-size:2vw">PIERRE EST PARACHUTÉ EN PLEIN MILIEU DU DÉSERT</p>	
+				</div>
+			</div>
+			<div id="move" style="position:relative">
+				<img src="img/95615956_689668218451393_4134781435519172608_n.jpg" style=""/>
+			</div>
+		</div>
+		<div id="d03" style="display:none">
+		    <div id="memo" style="position:fixed; z-index:5; width:100%; height:100%">
+		        <div style="position:fixed; width:33vw; height:25vh; background-color:black; opacity:0.5; left:30vw; top:40vh">
+		            
+		        </div>
+		        <div style="margin-left:1vw; opacity:1; position:fixed; width:30vw; height:20vh; left:30vw; top:40vh">
+		                <p>MÉMO : NORD, SUD, OUEST, EST, POUR AVANCER CHERCHEZ LES INDICES EN CLIQUANT DANS LES IMAGES.</p>
+		                <div style="margin-left:48%"><a href="javascript:hideMemo()"><button style="font-size:1vw">OK</button></a></div>
+		                
+		            </div>
+		    </div>
+			<div style="position:fixed; right:15vw; margin-top:2vw; z-index:2">
+				<a href="javascript:nordOuest()">
+					<img class="flechesdg" src="img/flecheGauche.png" style=" position:fixed; margin-top:35px"/>
+				</a>
+				<a>
+					<img class="flecheshb" src="img/flecheHaut.png" style=" position:fixed; margin-left:35px"/>
+				</a>
+				<a href="javascript:nordEst()">
+					<img class="flechesdg" src="img/flecheDroite.png" style=" position:fixed; margin-left:70px; margin-top:35px"/>
+				</a>
+				<a href="javascript:nordSud()">
+					<img class="flecheshb" src="img/flecheBas.png" style=" position:fixed; margin-left:35px; margin-top:70px"/>
+				</a>
+			</div>
+			<div id="inventaire" style="position:fixed; display:none;margin-top:2vw;  margin-left:2vw; z-index:2; color:white; font-size:2vw">
+				ÉPÉE COURTE AJOUTÉE À L'INVENTAIRE
+			</div>
+			<div id="sword" style="position:absolute; left:70vw; top:20vw; width:0vw; z-index:1; display:inline">
+				<div class="Epee" >
+					<a href="javascript:epee()">
+						<div class="imageEpee">
+							<img  src="img/epee.jpg" style="width:10vw"/>
+						</div>
+					</a>
+				</div>	
+			</div>
+			<div style="position:relative">
+				<img class="img_desert" src="img/desert1.jpg" style="height:100%"/>
+			</div>
+		</div>
+		<div id="d04" style="display:none">
+			<div style="position:fixed; right:15vw; margin-top:2vw; z-index:2">
+				<a href="javascript:sudOuest()">
+					<img class="flechesdg" src="img/flecheGauche.png" style=" position:fixed; margin-top:35px"/>
+				</a>
+				<a href="javascript:sudNord()">
+					<img class="flecheshb" src="img/flecheHaut.png" style=" position:fixed; margin-left:35px"/>
+				</a>
+				<a href="javascript:sudEst()">
+					<img class="flechesdg" src="img/flecheDroite.png" style=" position:fixed; margin-left:70px; margin-top:35px"/>
+				</a>
+				<a>
+					<img class="flecheshb" src="img/flecheBas.png" style=" position:fixed; margin-left:35px; margin-top:70px"/>
+				</a>
+			</div>
+			<div onmouseover="show()" onmouseout="hide()" style="position:absolute; width:60vw; height:15vw; left:38vw; top:12vw; z-index:1">
+				
+			</div>
+			<div id="txt" style="position:fixed; z-index:1; left:2vw; bottom:5vw; color:white; font-size:2.5vw; opacity:0">
+				LE DÉSERT SEMBLE S'ÉTENDRE À L'INFINI, RIEN À L'HORIZON SINON LE VIDE.
+			</div>
+			<div style="position:relative">
+				<img class="img_desert" src="img/desert4.jpg" style="height:100%"/>
+			</div>
+		</div>
+		<div id="d05" style="display:none">
+			<div style="position:fixed; right:15vw; margin-top:2vw; z-index:2">
+				<a>
+					<img class="flechesdg" src="img/flecheGauche.png" style=" position:fixed; margin-top:35px"/>
+				</a>
+				<a href="javascript:ouestNord()">
+					<img class="flecheshb" src="img/flecheHaut.png" style=" position:fixed; margin-left:35px"/>
+				</a>
+				<a href="javascript:ouestEst()">
+					<img class="flechesdg" src="img/flecheDroite.png" style=" position:fixed; margin-left:70px; margin-top:35px"/>
+				</a>
+				<a href="javascript:ouestSud()">
+					<img class="flecheshb" src="img/flecheBas.png" style=" position:fixed; margin-left:35px; margin-top:70px"/>
+				</a>
+			</div>
+			
+			<div  style="position:absolute; left:25vw; bottom:13vw; z-index:1">
+				<img id="dune" onmouseover="showDesertOuest()" onmouseout="hideDesertOuest()" src="img/dune.jpg" style="height:47vh;opacity: 0"/>
+			</div>
+			<div style="position:absolute; z-index:1; left:70vw; bottom:19vw">
+				<img id="sol" onmouseover="showDesertOuest()" onmouseout="hideDesertOuest()" src="img/soleil.jpg" style="width:20vw; opacity: 0"/>
+			</div>
+			<div id="duneTxt" style="position:fixed;z-index:1;left:2vw;bottom:5vw; color:white; font-size:2.5vw; opacity:0">
+				UNE IMMENSE DUNE CACHE L'HORIZON. LE SOLEIL APPARAÎT DERRIÈRE.
+			</div>
+			
+			
+			<div style="position:relative">
+				<img class="img_desert" src="img/desert3.jpg" style="height:100%"/>
+			</div>
+		</div>
+		<div id="d06" style="display:none">
+			<div style="position:fixed; right:15vw; margin-top:2vw; z-index:3">
+				<a href="javascript:estOuest()">
+					<img class="flechesdg" src="img/flecheGauche.png" style=" position:fixed; margin-top:35px"/>
+				</a>
+				<a href="javascript:estNord()">
+					<img class="flecheshb" src="img/flecheHaut.png" style=" position:fixed; margin-left:35px"/>
+				</a>
+				<a>
+					<img class="flechesdg" src="img/flecheDroite.png" style=" position:fixed; margin-left:70px; margin-top:35px"/>
+				</a>
+				<a href="javascript:estSud()">
+					<img class="flecheshb" src="img/flecheBas.png" style=" position:fixed; margin-left:35px; margin-top:70px"/>
+				</a>
+			</div>
+			<div style="position:absolute; z-index:1; left:75vw; top:17vw; opacity:1">
+				<a href="javascript:game()">
+					<img id="carcasse" src="img/Pelican16-26.jpg" style="width:15vw" />
+				</a>	
+			</div>
+			<div style="position:relative">
+				<img class="img_desert" src="img/desert 2.jpg" style="height:100%"/>
+			</div>
+			<div id="gameTxtAvion" style="opacity:0">
+				<p>FACE À LUI SE DESSINE UNE CARCASSE D'AVION. </p>
+				<p>POUR TROUVER L’ARTEFACT, PIERRE DOIT PÉNÉTRER DANS L’AVION. S’OFFRENT À LUI PLUSIEURS POSSIBILITÉS : LA PORTE, LE COCKPIT QUI SEMBLE ENDOMMAGÉ, ET UN HUBLOT EXPLOSÉ.</p>
+							
+				<div id="boutonEtape1">
+					<p>ACTIONS POSSIBLES :</p>
+					<p id="reponse1"></p>
+					<a href="javascript:porte()"><button>Passer par la porte </button></a>
+					<a href="javascript:etape1()"><button>Passer par le cockpit </button></a>
+					<a href="javascript:hublot()"><button>Passer par le hublot </button></a>
+					
+					
+				</div>
+				
+				<div id="etape2" style="display:none">
+					<p>IL SEMBLE POSSIBLE D’ESCALADER PAR LE COCKPIT !</p>
+					<p>DANS LE COCKPIT, SE TROUVENT LES SQUELETTES DU COMMANDANT ET DU COPILOTE. ILS ONT LEURS AFFAIRES PERSONNELLES PRÈS D'EUX.</p>
+					
+					<div id="boutonEtape2">
+						<p>ACTIONS POSSIBLES :</p>
+						<p id="reponse2"></p>
+						<a href="javascript:fouilleCommandant()"><button>Fouiller le commandant</button></a>
+						<a href="javascript:fouilleCopilote()"><button>Fouiller le copilote </button></a>
+						<a href="javascript:etape2()"><button>Aller voir les passagers de l'avion </button></a>
+						
+						
+					</div>
+				</div>
+				<div id="etape3" style="display:none">
+					<p>TROIS PERSONNES AVEC LEURS AFFAIRES PERSONNELLES SE TROUVENT À BORD DE L’AVION.</p>
+					<p>ACTIONS POSSIBLES :</p>
+					
+					<p id="clef"></p>
+					<p id="balise"></p>
+					<p id="reponse3"></p>
+					
+					<p id="artefact"></p>
+					<a href="03_Foret.html"><button id="suivant" style="display:none">Vers la forêt</button> </br> </br></a>
+					
+					<a href="javascript:fouillePersGauche()"><button>Fouiller la personne de gauche</button></a></br>
+					<a href="javascript:fouillePersMilieu()"><button>Fouiller la personne au milieu</button></a></br>
+					<a href="javascript:fouillePersDroite()"><button>Fouiller la personne de droite </button></a> </br></br>
+					<a href="javascript:fouilleValiseGauche()"><button>Fouiller la valise de la personne de gauche</button></a></br>
+					<a href="javascript:fouilleValiseMilieu()"><button>Fouiller la valise de la personne au milieu</button></a></br>
+					<a href="javascript:fouilleValiseDroite()"><button>Fouiller la valise de la personne de droite</button></a>
+					
+					
+				<div>
+				
+				
+			</div>
+		</div>
+	</body>
+</html>

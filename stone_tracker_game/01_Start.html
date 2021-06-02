@@ -1,0 +1,265 @@
+
+<html lang="fr">
+	<head>
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="css/styleFontaine.css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/screenfull.js"></script>
+		<script>
+		   
+			var btn;
+			var clickSound;
+			var clavierSound;
+			
+			var countImgLoaded = 0;
+			
+				
+			$(document).ready(function(){
+			    
+				clickSound = new Audio('bruit/click.mp3');
+				clavierSound = new Audio('bruit/clavier.wav');
+				clickSound.volume = 0.4;
+				clavierSound.volume = 0.2;
+			});
+			$(document).ready(function(){
+				btn = document.getElementById("btnStart");
+			});
+			function writeText(){
+				var array = Array.from($("#sp").val());
+				$("#sp").hide();
+				var i = 0;
+				var rand; 
+				//var audio = new Audio('bruit/ordi-clavier1.mp3'); 
+				
+	
+				function Write(){
+				//audio.play();
+				if(i == 436) {
+					$("#rs").append("<br />");
+					$("#rs").append("<br />");
+				}
+				
+				$("#rs").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+					btn.style.opacity = "1";
+				}
+				i++;
+				}
+				Write();
+			}
+			var part1;
+			var part2;
+			$(document).ready(function(){
+				part1 = document.getElementById("d00");
+			    part2 = document.getElementById("d01");
+			});
+			function secondpart(){
+				clickSound.play();
+				clavierSound.play();
+				part1.style.display = "none";
+				part2.style.display = "inline";
+				writeText();				
+			}
+			
+			
+function preloadImages(array, waitForOtherResources, timeout) {
+			    
+    var loaded = false, imgs = array.slice(0), t = timeout || 15*1000, timer;
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list
+    if (!waitForOtherResources || document.readyState === 'complete') {
+        loadNow();
+    } else {
+        window.addEventListener("load", function() {
+            clearTimeout(timer);
+            loadNow();
+        });
+        // in case window.addEventListener doesn't get called (sometimes some resource gets stuck)
+        // then preload the images anyway after some timeout time
+        timer = setTimeout(loadNow, t);
+    }
+
+    function loadNow() {
+        if (!loaded) {
+            loaded = true;
+            for (var i = 0; i < imgs.length; i++) {
+                var img = new Image();
+                img.onload = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        list.splice(index, 1);
+                        console.log("index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        countImgLoaded = countImgLoaded + 1
+                        console.log(countImgLoaded);
+                    }
+                };
+                img.onerror = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONERRROR - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                img.onabort = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONABORT - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                list.push(img);
+                img.src = imgs[i];
+            }
+        }
+    }
+}
+function preloadAudios(array, waitForOtherResources, timeout) {
+			    
+    var loaded = false, imgs = array.slice(0), t = timeout || 15*1000, timer;
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list
+    if (!waitForOtherResources || document.readyState === 'complete') {
+        loadNowAud();
+    } else {
+        window.addEventListener("load", function() {
+            clearTimeout(timer);
+            loadNowAud();
+        });
+        // in case window.addEventListener doesn't get called (sometimes some resource gets stuck)
+        // then preload the images anyway after some timeout time
+        timer = setTimeout(loadNowAud, t);
+    }
+
+    function loadNowAud() {
+        if (!loaded) {
+            loaded = true;
+            for (var i = 0; i < imgs.length; i++) {
+                var img = new Audio();
+                img.onload = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        list.splice(index, 1);
+                        console.log("index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        countImgLoaded = countImgLoaded + 1
+                        console.log(countImgLoaded);
+                    }
+                };
+                img.onerror = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONERRROR - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                img.onabort = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONABORT - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                list.push(img);
+                img.src = imgs[i];
+            }
+        }
+    }
+}
+
+//preloadImages(["img/101563303_255321059115700_1335802122603593728_n.png","img/84133491_3912778618796819_8366001894904037376_n.jpg","img/93576570_666773304149774_909479214921547776_n.png","img/95566832_557931618260581_8252254685411409920_n.jpg","img/95606791_192408381715013_5344178100756283392_n.png","img/95615956_689668218451393_4134781435519172608_n.jpg","img/96812966_241673303753913_8838155127291379712_n.png","img/_MAR4261.jpg","img/arbre.png","img/Avion.jpg","img/balise.jpg","img/chambre.jpg","img/desert 2.jpg","img/desert1.jpg","img/desert3.jpg","img/desert3.jpg","img/desertVueHaut.png","img/DSC_6121 - copie.jpg","img/dune.jpg","img/epee.jpg","img/fenetre.jpg","img/flecheBas.png","img/flecheDroite.png","img/flecheGauche.png","img/flecheHaut.png","img/fontainepixels.png","img/foret.jpg","img/grotte double.jpg","img/grotte-3.jpg","img/HomeDesert.png","img/IMG_2263 - copie.JPG","img/map.jpg","img/MAR_0373 - copie 2.jpg","img/MAR_0393 - copie 2.jpg","img/p1.jpg","img/p2.jpg","img/p4.jpg","img/pdfFontaine-1.jpg","img/Pelican16-26.jpg","img/planeteGrotte.jpg","img/scroll.jpg","img/soleil.jpg","img/tombeau.jpg"], true);
+
+
+//desert
+preloadImages(["img/84133491_3912778618796819_8366001894904037376_n.jpg"],true);
+preloadImages(["img/95615956_689668218451393_4134781435519172608_n.jpg"],true);
+preloadImages(["img/95566832_557931618260581_8252254685411409920_n.jpg"],true);
+preloadImages(["img/soleil.jpg"],true);
+preloadImages(["img/Pelican16-26.jpg"],true);
+preloadImages(["img/HomeDesert.png"],true);
+preloadImages(["img/flecheBas.png"],true);
+preloadImages(["img/flecheDroite.png"],true);
+preloadImages(["img/flecheGauche.png"],true);
+preloadImages(["img/flecheHaut.png"],true);
+preloadImages(["img/dune.jpg"],true);
+preloadImages(["img/epee.jpg"],true);
+preloadImages(["img/desert 2.jpg"],true);
+preloadImages(["img/desert1.jpg"],true);
+preloadImages(["img/desert3.jpg"],true);
+preloadImages(["img/desertVueHaut.png"],true);
+preloadImages(["img/Avion.jpg"],true);
+preloadAudios(["bruit/désertv1.wav"], true);
+
+
+
+
+
+
+		</script>
+	</head>
+	<body>
+	   <style type="text/css">
+            #warning-message { display: none; }
+            @media only screen and (orientation:portrait){
+                #wrapper { display:none; }
+                #warning-message { display:block; }
+            }
+            @media only screen and (orientation:landscape){
+                #warning-message { display:none; }
+            }
+        </style>
+    <div id="wrapper">
+		<div id="d00">
+			<a href="javascript:secondpart()">
+				<div class="mainTextOverImage">
+					<div id="menuTitle" > STONE TRACKER </div>
+					<div id="menusubTitle"> LOOKING FOR THE FOUNTAIN OF REMEMBRANCE </div>
+				</div>
+				<div id=menuImage>
+						<img src="img/chambre.jpg" style="width:100%; height:100%"/>
+				</div>
+			</a>
+		</div>
+		<div id="d01" style="display:none">
+			<div style="margin-top:5vw; z-index:1;position:absolute">
+				<div>
+					<p style="font-size:3vw; width:auto; margin-left:15vw; margin-right:15vw" align=center >BIENVENUE DANS LES AVENTURES DE LA FONTAINE DU SOUVENIR</p>
+					<p id="rs" style="font-size:1vw; width:80vw; margin-left:10%"></p>
+					<textarea id="sp" style="display:none">
+					PIERRE EST UN CHERCHEUR PASSIONNÉ DE MYTHOLOGIE ET D’ARCHÉOLOGIE. APRÈS DES ÉTUDES POUSSÉES SUR UNE ROCHE LÉGUÉE PAR UN PROCHE, IL DÉCOUVRE L'EXISTENCE D'UNE FONTAINE CACHÉE DANS UNE GROTTE QUI PERMETTRAIT DE SE SOUVENIR DE TOUT. 
+					SA QUÊTE CONSISTE ALORS À TROUVER DEUX AUTRES PIERRES QUI, ASSOCIÉES À CELLE QU’IL POSSÈDE, LUI DONNERONT ACCÈS À LA FONTAINE DU SOUVENIR.
+					POUR CELA IL DEVRA SE RENDRE DANS DIFFÉRENTS LIEUX.
+					DANS CE JEU LA CONTEMPLATION DEVIENT ACTIVE, ON CHERCHE DANS LES IMAGES DES INDICES, DES MOTS, ON LES PARCOURT DE LONG EN LARGE COMME ON PARCOURT NOS SOUVENIRS.</textarea>
+				</div>
+				<div id="btnStart" style="display: flex;justify-content: center;  opacity:0"><a href="02_Desert.html"><button position=center>START</button></a></div>
+			</div>
+			<div style="z-index:0">
+				<img src="img/map.jpg" style="width:100%; position:fixed; top:0px; left:0px"/>
+			</div>
+		</div>
+	</div>
+	<div id="warning-message">
+	   <div style="font-size:10vw; color:white; text-align:center; margin-top:45%"> Veuillez tourner votre appareil en mode paysage</div>
+</div>
+	</body>
+</html>

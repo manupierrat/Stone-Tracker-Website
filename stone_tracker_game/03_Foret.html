@@ -1,0 +1,424 @@
+
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" type="text/css" href="css/styleFontaine.css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script>
+			var clickSound;
+			var clavierSound;
+			var countImgLoaded = 0;
+			var width;
+			var index;
+			var suivant;
+			var suivantImg;
+
+			var gameBox;
+			
+			var photo1,photo2,photo3,photo4,photo5,photo6;
+			$(document).ready(function(){
+				clickSound = new Audio('bruit/click.mp3');
+				clavierSound = new Audio('bruit/clavier.wav');
+				soundFond = new Audio('bruit/foret.wav');
+				soundFond.volume= 0.8;
+				clickSound.volume = 0.4;
+				clavierSound.volume = 0.2;
+				
+			    photo1 = document.getElementById("foretBleu");
+			    photo2 = document.getElementById("arbre");
+			    photo3 = document.getElementById("foretSombre");
+			    photo4 = document.getElementById("cerf");
+			    photo5 = document.getElementById("plaine");
+			    photo6 = document.getElementById("foretNoir");
+			    
+			    
+				
+				gameBox = document.getElementById("gameTxtCombat");
+				objBody = document.body; 
+				objBody.style.transition = "3s ease-in-out";
+
+			});
+			
+			window.addEventListener("load", function(){
+			    suivantImg = document.getElementById("suivantImg");
+			    suivantImg.style.opacity = "1";
+			    suivantImg.addEventListener('click', function () {
+				    fight();
+				});
+			});
+			
+			function writeText(){
+				var array = Array.from($("#sp").val());
+				$("#sp").hide();
+				var i = 0;
+				var rand; 
+				//var audio = new Audio('bruit/ordi-clavier1.mp3'); 
+				
+	
+				function Write(){
+				//audio.play();
+				if(i == 185) {
+					$("#rs").append("<br />");
+					$("#rs").append("<br />");
+				}
+				
+				$("#rs").append(array[i]);
+				rand = Math.floor(Math.random() * (50 - 24 + 1)) + 24;
+				if(i<array.length) {
+					setTimeout(Write,rand);
+				}else{
+					clavierSound.pause();
+					clavierSound.currentTime = 0;
+				}
+				i++;
+				}
+				Write();				
+			}
+			var part1;
+			var part2;
+			var part3;
+			$(document).ready(function(){
+				part1 = document.getElementById("d00");
+			    part2 = document.getElementById("d01");
+			    part3 = document.getElementById("d02");
+			});
+			function secondpart(){
+				clickSound.play();
+				part1.style.display = "none";
+				part2.style.display = "inline";
+				clavierSound.play();	
+				soundFond.play();
+				writeText();
+			}
+
+			function toForest(){
+				clickSound.play();
+				clavierSound.pause();
+				part2.style.display = "none";
+				part3.style.display = "inline";
+				
+				photo1.classList.add("anime");
+				photo2.classList.add("anime");
+				photo3.classList.add("anime");
+				photo4.classList.add("anime");
+				photo5.classList.add("anime");
+				photo6.classList.add("anime");
+
+			}
+			function show(id, idImg){
+				document.getElementById(id).style.transition = ".2s ease-in-out"
+				document.getElementById(idImg).style.transition = ".2s ease-in-out"
+				
+				width = document.getElementById(idImg).width;
+				index = window.getComputedStyle(document.getElementById(id)).zIndex;
+				
+				document.getElementById(id).style.zIndex  = "6";
+				document.getElementById(idImg).style.width = width*1.10;
+				document.getElementById(idImg).style.height = 'auto';
+			};
+			
+			function hide(id, idImg){
+				document.getElementById(id).style.zIndex  = index;
+				document.getElementById(idImg).style.width = width;
+				document.getElementById(idImg).style.height = 'auto';
+
+			};
+			
+			function fight(){
+				clickSound.play();
+				soundFond.play();
+				gameBox.style.opacity = "1";
+				gameBox.style.zIndex = "7";
+			}
+			
+			function finCombat(){
+				var pvHero = parseInt(document.getElementById("pvHero").innerHTML);
+				var pvChien = parseInt(document.getElementById("pvChien").innerHTML);
+				if(pvChien <= 0 || pvHero <= 0){
+					document.getElementById("attaque").style.display = "none";
+					document.getElementById("soin").style.display = "none";
+					if(pvChien <= 0){
+						document.getElementById("ramasser").style.display = "block";
+					}else{
+						document.getElementById("recommencer").style.display = "block";
+					}
+				}
+			}
+			function chienAttaque(){
+				var pvHero = parseInt(document.getElementById("pvHero").innerHTML);
+				var esquive = Math.floor((Math.random() * 10) + 1);
+				var feed = document.getElementById("feed");
+				if(esquive < 4 ){
+					feed.innerHTML = feed.innerHTML + "PIERRE A ESQUIVÉ L'ATTAQUE." + "</br>";
+				}
+				else{
+					pvHero = pvHero - 20;
+					document.getElementById("pvHero").innerHTML = pvHero;
+					feed.innerHTML = feed.innerHTML + "LE CHIEN INFLIGE 20 DÉGÂTS À PIERRE." + "</br>";
+				}
+			}
+			function attaque(){
+				clickSound.play();
+				var pvChien = parseInt(document.getElementById("pvChien").innerHTML);
+				var esquive = Math.floor((Math.random() * 10) + 1);
+				var feed = document.getElementById("feed");
+				if(esquive < 4 ){
+					feed.innerHTML = feed.innerHTML + "LE CHIEN A ESQUIVÉ L'ATTAQUE." + "</br>";
+				}
+				else{
+					pvChien = pvChien - 15;
+					document.getElementById("pvChien").innerHTML = pvChien;	
+					feed.innerHTML = feed.innerHTML + "PIERRE INFLIGE 15 DÉGÂTS AU CHIEN." + "</br>";
+				}
+				if(pvChien > 0){
+					chienAttaque();
+				}
+				finCombat();
+			}
+			function soin(){
+				clickSound.play();
+				var pvHero = parseInt(document.getElementById("pvHero").innerHTML);
+				var feed = document.getElementById("feed");
+				pvHero = pvHero + 25;
+				document.getElementById("pvHero").innerHTML = pvHero;
+				feed.innerHTML = feed.innerHTML + "PIERRE SE SOIGNE ET REGAGNE 10 POINTS DE VIE." + "</br>";
+				chienAttaque();
+				finCombat();
+			}
+			function restart(){
+				document.getElementById("feed").innerHTML = "";
+				document.getElementById("recommencer").style.display = "none";
+				document.getElementById("pvHero").innerHTML = "100";
+				document.getElementById("pvChien").innerHTML = "75";
+				document.getElementById("attaque").style.display = "inline-table";
+				document.getElementById("soin").style.display = "inline-table";
+			}
+			
+			function grotte(){
+				clickSound.play();
+				objBody.style.opacity = "0";
+				setTimeout(enterGrotte, 4500);
+			}
+			
+			function enterGrotte(){
+				window.location.href = "04_Grotte.html";
+			}
+			
+function preloadImages(array, waitForOtherResources, timeout) {
+			    
+    var loaded = false, imgs = array.slice(0), t = timeout || 15*1000, timer;
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list
+    if (!waitForOtherResources || document.readyState === 'complete') {
+        loadNow();
+    } else {
+        window.addEventListener("load", function() {
+            clearTimeout(timer);
+            loadNow();
+        });
+        // in case window.addEventListener doesn't get called (sometimes some resource gets stuck)
+        // then preload the images anyway after some timeout time
+        timer = setTimeout(loadNow, t);
+    }
+
+    function loadNow() {
+        if (!loaded) {
+            loaded = true;
+            for (var i = 0; i < imgs.length; i++) {
+                var img = new Image();
+                img.onload = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        list.splice(index, 1);
+                        console.log("index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        countImgLoaded = countImgLoaded + 1
+                        console.log(countImgLoaded);
+                    }
+                };
+                img.onerror = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONERRROR - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                img.onabort = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONABORT - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                list.push(img);
+                img.src = imgs[i];
+            }
+        }
+    }
+}
+
+function preloadAudios(array, waitForOtherResources, timeout) {
+			    
+    var loaded = false, imgs = array.slice(0), t = timeout || 15*1000, timer;
+    if (!preloadImages.list) {
+        preloadImages.list = [];
+    }
+    var list = preloadImages.list
+    if (!waitForOtherResources || document.readyState === 'complete') {
+        loadNowAud();
+    } else {
+        window.addEventListener("load", function() {
+            clearTimeout(timer);
+            loadNowAud();
+        });
+        // in case window.addEventListener doesn't get called (sometimes some resource gets stuck)
+        // then preload the images anyway after some timeout time
+        timer = setTimeout(loadNowAud, t);
+    }
+
+    function loadNowAud() {
+        if (!loaded) {
+            loaded = true;
+            for (var i = 0; i < imgs.length; i++) {
+                var img = new Audio();
+                img.onload = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        list.splice(index, 1);
+                        console.log("index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        countImgLoaded = countImgLoaded + 1
+                        console.log(countImgLoaded);
+                    }
+                };
+                img.onerror = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONERRROR - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                img.onabort = function() {
+                    var index = list.indexOf(this);
+                    if (index !== -1) {
+                        // remove image from the array once it's loaded
+                        // for memory consumption reasons
+                        console.log("ONABORT - remove -- index= "+ index +" -- url= "+ img.src +" -- statut= "+this.complete);
+                        list.splice(index, 1);
+                    }
+                };
+                list.push(img);
+                img.src = imgs[i];
+            }
+        }
+    }
+}
+
+//grotte
+preloadImages(["img/101563303_255321059115700_1335802122603593728_n.png"],true);
+preloadImages(["img/tombeau.jpg"],true);
+preloadImages(["img/scroll.jpg"],true);
+preloadImages(["img/planeteGrotte.jpg"],true);
+preloadImages(["img/pdfFontaine-1.jpg"],true);
+preloadImages(["img/p1.jpg"],true);
+preloadImages(["img/p2.jpg"],true);
+preloadImages(["img/p4.jpg"],true);
+preloadImages(["img/grotte double.jpg"],true);
+preloadImages(["img/fontainepixels.png"],true);
+preloadImages(["img/balise.jpg"],true);
+preloadAudios(["bruit/grottev1.wav"], true);
+preloadAudios(["bruit/A1-0001_Untitled.wav"], true);
+
+		</script>		
+	</head>	
+	<body>
+		<div id="d00">
+			<div class="overlay-imageStart" style="z-index:1">
+				<a href="javascript:secondpart()">
+					<img class="image" src="img/planetForet.jpg" alt="Alt text" />
+					<div class="hover">
+						<div class="text">LA FORÊT</div>
+					</div>
+				</a>
+			</div>
+			<div style="position:fixe;z-index:0">
+				<img src="img/93576570_666773304149774_909479214921547776_nzoom.png" style="width:100%; height:100%" />
+			</div>
+		</div>
+		<div id="d01" style="display:none">
+			<div style="position:fixed; top:0px; left:0px">
+				<img src="img/93576570_666773304149774_909479214921547776_n.png" style="width:100vw;z-index:0"/>
+			</div>
+			<a href="javascript:toForest()">
+				<img id="fenetreForet" src="img/fenetre.jpg" style="position:absolute; left:60vw; height:70vh; top:5vw;" />
+			</a>
+			<div style="position:absolute; z-index:1; top:5vw; width:50vw; height:53vh; background-color:black; opacity:0.5; left:2vw">
+			</div>
+			<div style="top:6vw; z-index:2; position:absolute; width:46vw; left:4vw">
+				<div>
+					<p id="rs" style="width:100%"></p>
+					<textarea id="sp" style="display:none">PIERRE, SUITE À SA QUÊTE DANS LE DÉSERT, 
+					POSSÈDE LE DEUXIÈME ARTEFACT. IL DOIT ALORS SE RENDRE DANS LA FORÊT POUR TROUVER LE DERNIER QUI LUI PERMETTRA D’AVOIR ACCÈS À LA FONTAINE.
+	
+					PLUS PIERRE S’ENFONCE DANS LA FORÊT, PLUS ELLE SEMBLE DENSE ET INQUIÉTANTE. EN TRAVERSANT CETTE VÉGÉTATION HOSTILE, IL A CETTE FORTE IMPRESSION DE RENTRER DANS UNE FORÊT DE CONTES, ÉVOQUANT LES ÂMES DES FANTÔMES PERDUS OU LE
+					VAGABONDAGE DE L’ÂME.</textarea>
+				</div>
+			</div>
+		</div>
+	<div id="d02" style="display:none">
+		<div style="position:fixe; z-index:0">
+			<img src="img/foret.jpg" style="height:100%; width:100%">
+		</div>
+		<div id="foretBleu" style="z-index:4; position:absolute ; left:37%; top:19%">
+			<img id="foretBleuZoom" onmouseover="show('foretBleu','foretBleuZoom')" onmouseout="hide('foretBleu','foretBleuZoom')" src="img/_MAR4261.jpg" style="width:48%"/>
+		</div>
+		<div id="arbre" style="z-index:5; position:absolute; left:60%; top:30%">
+			<img id="arbreZoom" onmouseover="show('arbre','arbreZoom')" onmouseout="hide('arbre','arbreZoom')" src="img/arbre.png" style="width:48%"/>
+		</div>
+		<div id="cerf" style="z-index:4; position:absolute; left:35%; top:56%">
+			<img id="cerfZoom" onmouseover="show('cerf','cerfZoom')" onmouseout="hide('cerf','cerfZoom')" src="img/DSC_6121 - copie.jpg" style="width:35%"/>
+		</div>
+		<div id="foretSombre" style="z-index:4; position:absolute ; left:15%; top:10%">
+			<img id="foretSombreZoom" onmouseover="show('foretSombre','foretSombreZoom')" onmouseout="hide('foretSombre','foretSombreZoom')" src="img/IMG_2263 - copie.JPG" style="width:25%"/>
+		</div>
+		<div id="plaine" style="z-index:3; position:absolute; left:5%; top:40%">
+			<img id="plaineZoom" onmouseover="show('plaine','plaineZoom')" onmouseout="hide('plaine','plaineZoom')" src="img/MAR_0373 - copie 2.jpg" style="width:36%"/>
+		</div>
+		<div id="foretNoir" style="z-index:3; position:absolute; left:65%; top:7%">
+				<img  id="foretZoom" onmouseover="show('foretNoir','foretZoom')" onmouseout="hide('foretNoir','foretZoom')" src="img/MAR_0393 - copie 2.jpg" style="width:80%"/>
+		</div>
+	    <div style="width:10vw; height:10vh; position:absolute; right:2vw; bottom:2vh; opacity:1; z-index:9">
+		<a href="javascript:fight()" >
+		<img  src="img/flecheDroite.png" style="width:15vw; height:25vh; position:absolute; right:2vw; bottom:2vh; opacity:1"/>
+		</a>
+		</div>
+		<div id="gameTxtCombat" style="opacity:0; z-index:0">
+			<p>PIERRE, SUITE À SA QUÊTE DANS LE DÉSERT, POSSÈDE LE DEUXIÈME ARTEFACT. IL DOIT ALORS SE RENDRE DANS LA FORÊT POUR TROUVER LE DERNIER QUI LUI PERMETTRA D’AVOIR ACCÈS À LA FONTAINE.</p>
+			<p>UN CHIEN SAUVAGE GARDE L’OBJET, PIERRE VA DONC DEVOIR SE BATTRE.</p>
+			
+			<a href="javascript:attaque()"><button id="attaque">Attaque</button></a>
+			<a href="javascript:soin()"><button id="soin">Soin</button></a>
+			
+			<p>POINTS DE VIE PIERRE : </p><p id="pvHero">100</p>
+			</br>
+			<p>POINTS DE VIE CHIEN	 : </p><p id="pvChien">75</p>
+			</br>
+			
+			<a href="javascript:restart()"><button id="recommencer" style="display:none">Recommencer</button></a>
+			<a href="javascript:grotte()"><button id="ramasser" style="display:none">Ramasser l'artefact</button></a>
+						
+			<p id="feed"></p>
+		</div>
+	</div>
+	</body>
+</html>
