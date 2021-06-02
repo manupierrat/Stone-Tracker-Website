@@ -1,0 +1,15 @@
+#fond_rectangle_orange{
+    background-color: #e06c1e;
+    position: absolute;
+    left: 25vw;
+    top: 10vw;
+    width: 50vw;
+    height: 30vw;
+    z-index: -1;
+}
+
+#photo_stone_tracker{
+    height: 70%;
+    margin-top: 10%;
+    margin-left: 19%;
+}

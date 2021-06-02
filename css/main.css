@@ -1,0 +1,37 @@
+@media screen and (min-width: 720px)
+{
+    #section_description_top{
+        position: absolute;
+        top: 0vw;
+        right: 2vw;
+        width: 37vW;
+    }
+    #section_description_content{
+    
+    }
+    #section_description_bottom{
+        position: absolute;
+        top: 35vw;
+        left: 5vw;
+        width: 95vw;
+    }
+
+    .description_top_title{
+        text-transform: uppercase;
+        font-family: 'thesans9blackcaps', sans-serif;
+        font-size: 5vw;
+        margin-bottom: -1.5vw;
+    }
+
+    .description_top_content{
+        text-transform: uppercase;
+        font-family: 'thesans4semilightcaps', sans-serif;
+        font-size: 0.9vw;
+        margin-top: 0vw;
+    }
+
+    .description_bottom_content{
+        font-family: 'thesans3light', sans-serif;
+        font-size: 0.9vw;
+    }
+}

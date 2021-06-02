@@ -1,0 +1,37 @@
+#section_menu{
+    position: absolute;
+    top: 2vw;
+    left: 5vw;
+    font-family: 'thesans4semilightcaps', sans-serif;
+}
+
+#list_menu{
+    list-style: none;
+    margin: 0vw;
+    padding: 0vw;
+    font-size: 0.8vw;
+    text-transform: uppercase;
+}
+
+#list_menu a{
+    color : #000000;
+    text-decoration: none;
+}
+
+#name_Marie_Froger{
+    font-size: 2vw;
+    text-transform: uppercase;
+    font-family: 'thesans9blackcaps', sans-serif
+}
+
+.sub_menu{
+    margin-top:1vw;
+}
+
+.sub_menu_title{
+    text-transform: uppercase;
+    font-family: 'thesans7boldcaps', sans-serif;
+}
+
+
+
